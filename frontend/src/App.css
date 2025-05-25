@@ -11,7 +11,6 @@
   color: #fff; /* texto branco para contraste */
 }
 
-
 h1 {
   text-align: center;
   color: white;
@@ -70,4 +69,65 @@ li p {
 
 li strong {
   color: #1b5e20;
+}
+
+.filter-dropdown-container {
+  margin-bottom: 2rem;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.filter-dropdown-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.filter-dropdown-select {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  display: block;
+  margin: 0 auto;
+}
+
+.filter-dropdown-select:hover,
+.filter-dropdown-select:focus {
+  background-color: #007bff;
+  color: white;
+  outline: none;
+}
+.filtro-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 10px;
+}
+
+.filtro-container label {
+  font-weight: bold;
+}
+
+.filtro-container select {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #007bff;
+  cursor: pointer;
+}
+
+.filtro-alinhado {
+  margin-bottom: 2rem;
+  max-width: 250px;
+  text-align: left;
+  margin-left: 0; /* força para esquerda */
 }

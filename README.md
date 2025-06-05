@@ -24,16 +24,15 @@ Plataforma web de e-commerce desenvolvida para conectar pequenos produtores da a
 - Git
 
 ### 📦 Backend
-cd backend
-npm install
-npx sequelize db:migrate
-npm run dev
+cd backend /
+npm install /
+npm run dev /
 Acesse em http://localhost:5000
 
 ### 💻 Frontend
-cd frontend
-npm install
-npm run dev
+cd frontend /
+npm install /
+npm run dev /
 Acesse em http://localhost:3000
 
 ---

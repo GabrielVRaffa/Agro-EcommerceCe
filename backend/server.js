@@ -11,7 +11,8 @@ app.use(express.json());
 
 // Rotas
 app.use('/produtos', require('./routes/products'));
-app.use('/user', require('./routes/user') )
+app.use('/user', require('./routes/user') );
+app.use('/pedidos', require('./routes/order'));
 
 // Porta
 const PORT = process.env.PORT || 5000;

@@ -25,6 +25,19 @@ const pool = new Pool({
     )
   `);
   console.log('✅ Tabela "users" verificada/criada');
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS pedidos (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+      produtos JSONB NOT NULL,
+      valor_produtos NUMERIC(10, 2) NOT NULL,
+      valor_frete NUMERIC(10, 2) NOT NULL,
+      valor_total NUMERIC(10, 2) NOT NULL,
+      data_pedido TIMESTAMP DEFAULT NOW()
+    )
+  `);
+  console.log('✅ Tabela "pedidos" verificada/criada');
 })();
 
 

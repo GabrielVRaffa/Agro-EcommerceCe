@@ -1,8 +1,11 @@
 import React from 'react';
 import { useCart } from '../components/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 function CartPage() {
   const { cartItems, updateQuantity, removeFromCart } = useCart();
+
+  const navigate = useNavigate();
 
   const handleChange = (e, id) => {
     const value = parseInt(e.target.value, 10);
@@ -12,6 +15,13 @@ function CartPage() {
   };
 
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+   const handleFecharPedido = () => {
+    if (cartItems.length > 0) {
+      navigate('/fechar-pedido');
+    }
+  };
+
 
   return (
     <div className="App" style={{ padding: '2rem' }}>
@@ -75,6 +85,21 @@ function CartPage() {
           </ul>
 
           <h2>Total: R$ {total.toFixed(2)}</h2>
+          <button
+            onClick={handleFecharPedido}
+            style={{
+              marginTop: '1rem',
+              backgroundColor: '#28a745',
+              color: '#fff',
+              padding: '0.75rem 1.5rem',
+              border: 'none',
+              borderRadius: '6px',
+              fontSize: '1rem',
+              cursor: 'pointer',
+            }}
+          >
+            Fechar Pedido
+          </button>
         </>
       )}
     </div>

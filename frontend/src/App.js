@@ -9,6 +9,7 @@ import Orders from './pages/Orders';
 import ShoppingCart from './pages/ShoppingCart';
 import Navbar from './components/Navbar';
 import Layout from './pages/Layout';
+import FecharPedido from './pages/FecharPedido'
 import { AuthProvider } from './components/AuthContext';
 import { CartProvider } from './components/CartContext';
 
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/cadastro" element={<Layout><SignUp /></Layout>} />
             <Route path="/pedidos" element={<Layout><Orders /></Layout>} />
             <Route path="/carrinho" element={<Layout><ShoppingCart /></Layout>} />
+            <Route path="/fechar-pedido" element ={<Layout><FecharPedido /></Layout>} />
           </Routes>
         </Router>
       </CartProvider>

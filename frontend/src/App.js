@@ -10,21 +10,24 @@ import ShoppingCart from './pages/ShoppingCart';
 import Navbar from './components/Navbar';
 import Layout from './pages/Layout';
 import { AuthProvider } from './components/AuthContext';
+import { CartProvider } from './components/CartContext';
 
 export default function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Layout><Home /></Layout>} />
-          <Route path="/products" element={<Layout><Products /></Layout>} />
-          <Route path="/login" element={<Layout><Login /></Layout>} />
-          <Route path="/cadastro" element={<Layout><SignUp /></Layout>} />
-          <Route path="/pedidos" element={<Layout><Orders /></Layout>} />
-          <Route path="/carrinho" element={<Layout><ShoppingCart /></Layout>} />
-        </Routes>
-      </Router>
+      <CartProvider>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Layout><Home /></Layout>} />
+            <Route path="/products" element={<Layout><Products /></Layout>} />
+            <Route path="/login" element={<Layout><Login /></Layout>} />
+            <Route path="/cadastro" element={<Layout><SignUp /></Layout>} />
+            <Route path="/pedidos" element={<Layout><Orders /></Layout>} />
+            <Route path="/carrinho" element={<Layout><ShoppingCart /></Layout>} />
+          </Routes>
+        </Router>
+      </CartProvider>
     </AuthProvider>
   );
 }

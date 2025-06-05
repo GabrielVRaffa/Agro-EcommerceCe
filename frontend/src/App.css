@@ -1,5 +1,5 @@
 /* src/App.css */
-.App {
+.page-content .App {
   font-family: 'Segoe UI', sans-serif;
   padding: 2rem;
   max-width: 1200px;
@@ -11,14 +11,26 @@
   color: #fff; /* texto branco para contraste */
 }
 
-h1 {
+.page-content h1 {
   text-align: center;
   color: white;
   margin-bottom: 2rem;
   font-size: 3rem;
 }
 
-ul {
+.page-content h3 {
+  text-align: center;
+  color: white;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.page-content p {
+  text-align: center;
+  color: white;
+}
+
+.page-content ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; /* Centraliza os cards */
@@ -27,7 +39,7 @@ ul {
   list-style: none;
 }
 
-li {
+.page-content li {
   background: #ffffff;
   border-radius: 10px;
   padding: 1rem;
@@ -41,11 +53,11 @@ li {
   text-align: left;
 }
 
-li:hover {
+.page-content li:hover {
   transform: translateY(-5px);
 }
 
-li img {
+.page-content li img {
   width: 100%;
   height: 180px;
   object-fit: cover;
@@ -53,32 +65,32 @@ li img {
   margin-bottom: 0.5rem;
 }
 
-li h2 {
+.page-content li h2 {
   margin: 0.5rem 0 0.3rem;
   color: #333;
   font-size: 1.2rem;
   min-height: 48px; /* garante alinhamento */
 }
 
-li p {
+.page-content li p {
   margin: 0.25rem 0;
   color: #555;
   font-size: 0.95rem;
   flex-grow: 1;
 }
 
-li strong {
+.page-content li strong {
   color: #1b5e20;
 }
 
-.filter-dropdown-container {
+.page-content .filter-dropdown-container {
   margin-bottom: 2rem;
   max-width: 300px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.filter-dropdown-label {
+.page-content .filter-dropdown-label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
@@ -87,7 +99,7 @@ li strong {
   text-align: center;
 }
 
-.filter-dropdown-select {
+.page-content .filter-dropdown-select {
   width: 100%;
   padding: 8px 12px;
   font-size: 1rem;
@@ -99,13 +111,13 @@ li strong {
   margin: 0 auto;
 }
 
-.filter-dropdown-select:hover,
-.filter-dropdown-select:focus {
+.page-content .filter-dropdown-select:hover,
+.page-content .filter-dropdown-select:focus {
   background-color: #007bff;
   color: white;
   outline: none;
 }
-.filtro-container {
+.page-content .filtro-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -113,11 +125,11 @@ li strong {
   gap: 10px;
 }
 
-.filtro-container label {
+.page-content .filtro-container label {
   font-weight: bold;
 }
 
-.filtro-container select {
+.page-content .filtro-container select {
   padding: 8px 12px;
   font-size: 1rem;
   border-radius: 6px;
@@ -125,7 +137,7 @@ li strong {
   cursor: pointer;
 }
 
-.filtro-alinhado {
+.page-content .filtro-alinhado {
   margin-bottom: 2rem;
   max-width: 250px;
   text-align: left;

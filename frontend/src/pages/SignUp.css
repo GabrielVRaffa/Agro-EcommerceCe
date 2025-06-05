@@ -1,0 +1,51 @@
+.signup-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.signup-form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.signup-form input,
+.signup-form select {
+  width: 95%;
+  padding: 8px 10px;
+  margin-top: 0.3rem;
+  border-radius: 6px;
+  border: 1px solid #007bff;
+  font-size: 1rem;
+}
+
+.signup-form button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.signup-form button:hover:enabled {
+  background-color: #0056b3;
+}
+
+.signup-message {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #d9534f; /* vermelho para erros */
+  text-align: center;
+}

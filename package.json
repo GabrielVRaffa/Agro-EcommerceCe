@@ -10,6 +10,7 @@
     "concurrently": "^8.2.0"
   },
   "dependencies": {
+    "agro-ecommerce": "file:",
     "axios": "^1.9.0",
     "react": "^19.1.0"
   }

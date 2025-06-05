@@ -175,3 +175,12 @@
 .page-content .produto-formulario button:hover {
   background-color: #0056b3;
 }
+
+.meus-pedidos-titulo {
+  text-align: center;
+  font-size: 2.5rem; /* equivalente a text-4xl */
+  font-weight: 800;   /* equivalente a font-extrabold */
+  margin-bottom: 2rem; /* equivalente a mb-8 */
+  color: white;     /* verde escuro */
+  width: 100%;
+}

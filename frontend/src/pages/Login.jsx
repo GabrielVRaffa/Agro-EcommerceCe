@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Login.css'; // CSS separado opcional
-import { useNavigate } from 'react-router-dom';
+import './Login.css';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
 
 function Login() {
@@ -12,7 +12,7 @@ function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = async e => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setMensagem('');
     setLoading(true);
@@ -26,8 +26,6 @@ function Login() {
       setMensagem(`✅ Bem-vindo, ${response.data.user.email}`);
       login(response.data.token);
       navigate('/');
-      
-
     } catch (err) {
       if (err.response?.data?.error) {
         setMensagem(`❌ ${err.response.data.error}`);
@@ -41,22 +39,26 @@ function Login() {
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
+      <h2 className="login-title">Acessar Conta</h2>
 
       <form onSubmit={handleLogin} className="login-form">
-        <label>Email:</label>
+        <label htmlFor="email">E-mail</label>
         <input
+          id="email"
           type="email"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Digite seu e-mail"
           required
         />
 
-        <label>Senha:</label>
+        <label htmlFor="password">Senha</label>
         <input
+          id="password"
           type="password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Digite sua senha"
           required
         />
 
@@ -65,7 +67,11 @@ function Login() {
         </button>
       </form>
 
-      {mensagem && <p className="login-mensagem" style={{color: 'black'}}>{mensagem}</p>}
+      {mensagem && <p className="login-mensagem">{mensagem}</p>}
+
+      <div className="login-footer">
+        <p>Não possui conta? <Link to="/cadastro" className="cadastro-link">Cadastre-se</Link></p>
+      </div>
     </div>
   );
 }

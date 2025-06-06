@@ -12,6 +12,7 @@
   "dependencies": {
     "agro-ecommerce": "file:",
     "axios": "^1.9.0",
-    "react": "^19.1.0"
+    "react": "^19.1.0",
+    "react-toastify": "^11.0.5"
   }
 }

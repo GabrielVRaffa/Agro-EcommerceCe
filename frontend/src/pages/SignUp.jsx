@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './SignUp.css';
 
 function Signup() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [cnpj, setCnpj] = useState('');
-  const [cep, setCep] = useState('');
-  const [rua, setRua] = useState('');
-  const [numero, setNumero] = useState('');
-  const [cidade, setCidade] = useState('');
-  const [estado, setEstado] = useState('PR');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    cnpj: '',
+    cep: '',
+    rua: '',
+    numero: '',
+    cidade: '',
+    estado: 'PR',
+  });
+
   const [mensagem, setMensagem] = useState('');
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -23,21 +30,9 @@ function Signup() {
     setLoading(true);
 
     try {
-
-      await axios.post('http://localhost:5000/user/register', {
-        email,
-        password,
-        cnpj,
-        cep,
-        rua,
-        numero,
-        cidade,
-        estado
-        });
-
-      setMensagem('Cadastro realizado com sucesso! Redirecionando para login...');
+      await axios.post('http://localhost:5000/user/register', formData);
+      setMensagem('✅ Cadastro realizado com sucesso! Redirecionando para login...');
       setTimeout(() => navigate('/login'), 2000);
-
     } catch (error) {
       if (error.response?.data?.error) {
         setMensagem(`❌ ${error.response.data.error}`);
@@ -53,74 +48,95 @@ function Signup() {
     <div className="signup-container">
       <h2>Cadastro</h2>
 
-      <form onSubmit={handleSignup} className="signup-form">
-        <label>Email:</label>
+      <form onSubmit={handleSignup} className="signup-form" noValidate>
+        <label htmlFor="email">Email:</label>
         <input
+          id="email"
+          name="email"
           type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
           required
+          placeholder="exemplo@dominio.com"
         />
 
-        <label>Senha:</label>
+        <label htmlFor="password">Senha:</label>
         <input
+          id="password"
+          name="password"
           type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
           minLength={6}
           required
+          placeholder="Mínimo 6 caracteres"
         />
 
-        <label>CNPJ:</label>
+        <label htmlFor="cnpj">CNPJ:</label>
         <input
+          id="cnpj"
+          name="cnpj"
           type="text"
-          value={cnpj}
-          onChange={e => setCnpj(e.target.value)}
-          required
+          value={formData.cnpj}
+          onChange={handleChange}
           maxLength={14}
+          required
           placeholder="Apenas números"
         />
 
         <h3>Endereço</h3>
 
-        <label>CEP:</label>
+        <label htmlFor="cep">CEP:</label>
         <input
+          id="cep"
+          name="cep"
           type="text"
-          value={cep}
-          onChange={e => setCep(e.target.value)}
-          required
+          value={formData.cep}
+          onChange={handleChange}
           maxLength={8}
+          required
           placeholder="Apenas números"
         />
 
-        <label>Rua:</label>
+        <label htmlFor="rua">Rua:</label>
         <input
+          id="rua"
+          name="rua"
           type="text"
-          value={rua}
-          onChange={e => setRua(e.target.value)}
+          value={formData.rua}
+          onChange={handleChange}
           required
+          placeholder="Nome da rua"
         />
 
-        <label>Número:</label>
+        <label htmlFor="numero">Número:</label>
         <input
+          id="numero"
+          name="numero"
           type="text"
-          value={numero}
-          onChange={e => setNumero(e.target.value)}
+          value={formData.numero}
+          onChange={handleChange}
           required
+          placeholder="Número da residência"
         />
 
-        <label>Cidade:</label>
+        <label htmlFor="cidade">Cidade:</label>
         <input
+          id="cidade"
+          name="cidade"
           type="text"
-          value={cidade}
-          onChange={e => setCidade(e.target.value)}
+          value={formData.cidade}
+          onChange={handleChange}
           required
+          placeholder="Cidade"
         />
 
-        <label>Estado:</label>
+        <label htmlFor="estado">Estado:</label>
         <select
-          value={estado}
-          onChange={e => setEstado(e.target.value)}
+          id="estado"
+          name="estado"
+          value={formData.estado}
+          onChange={handleChange}
           required
         >
           <option value="PR">Paraná (PR)</option>
@@ -133,7 +149,18 @@ function Signup() {
         </button>
       </form>
 
-      {mensagem && <p className="signup-message" style={{color: 'black'}}>{mensagem}</p>}
+      {mensagem && (
+        <p
+          className="signup-message"
+          style={{ color: mensagem.startsWith('✅') ? 'green' : 'red' }}
+        >
+          {mensagem}
+        </p>
+      )}
+
+      <p className="login-link">
+        Já tem uma conta? <Link to="/login">Clique aqui para fazer login</Link>.
+      </p>
     </div>
   );
 }

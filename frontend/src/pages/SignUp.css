@@ -1,51 +1,102 @@
+/* Container principal */
 .signup-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin: 3rem auto; /* diminui o top/bottom */
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  padding: 2rem 2rem; /* menos padding */
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
   font-family: 'Segoe UI', sans-serif;
 }
 
-.signup-form label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: 600;
-  color: #333;
+/* Título */
+.signup-title {
+  text-align: center;
+  font-size: 1.6rem; /* um pouco menor */
+  font-weight: 700;
+  margin-bottom: 1rem; /* menos margem */
+  color: white;
 }
 
+/* Formulário */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* espaçamento menor */
+}
+
+/* Rótulos */
+.signup-form label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Inputs e selects */
 .signup-form input,
 .signup-form select {
-  width: 95%;
-  padding: 8px 10px;
-  margin-top: 0.3rem;
-  border-radius: 6px;
-  border: 1px solid #007bff;
-  font-size: 1rem;
+  padding: 10px; /* padding menor */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease-in-out;
 }
 
+.signup-form input:focus,
+.signup-form select:focus {
+  border-color: #2d6a4f;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(45, 106, 79, 0.2);
+}
+
+/* Botão */
 .signup-form button {
-  margin-top: 1.5rem;
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+  padding: 10px; /* padding menor */
+  background-color: #40916c;
   color: white;
+  font-size: 0.95rem;
   font-weight: 600;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1.1rem;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.25s ease;
 }
 
 .signup-form button:hover:enabled {
-  background-color: #0056b3;
+  background-color: #2d6a4f;
 }
 
+/* Mensagem de status */
 .signup-message {
-  margin-top: 1rem;
+  margin-top: 1rem; /* margem menor */
   font-weight: bold;
-  color: #d9534f; /* vermelho para erros */
+  color: #d00000;
   text-align: center;
+}
+
+/* Rodapé com link para login */
+.signup-footer {
+  margin-top: 0.8rem; /* margem menor */
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.login-link {
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.login-link a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+  color: #40916c;
 }

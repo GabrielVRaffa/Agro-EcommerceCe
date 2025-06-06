@@ -24,7 +24,7 @@ function FecharPedido() {
   );
 
   const calcularFrete = () => {
-    const valorFrete = Math.floor(Math.random() * 500) + 500;
+    const valorFrete = Math.floor(Math.random() * 200) + 200;
     setFrete(valorFrete);
   };
 
@@ -181,7 +181,7 @@ const styles = {
     padding: "1.5rem",
     maxWidth: 400,
     margin: "3rem auto",
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "rgba(255, 255, 255, 0.40)",
     borderRadius: 10,
     boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
@@ -227,16 +227,16 @@ const styles = {
     transition: "background-color 0.3s",
   },
   summaryBox: {
-    backgroundColor: "white",
-    padding: "1rem 1.5rem",
-    borderRadius: 6,
-    boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
-    marginBottom: 20,
-    color: "#333",
-    fontSize: "1rem",
-    lineHeight: 1.5,
-    width: "100%",
-    textAlign: "center",
+  backgroundColor: "rgba(255, 255, 255, 0)", // mesma cor do container
+  padding: "1rem 1.5rem",
+  borderRadius: 0,            // para parecer "colado" ao container
+  // boxShadow removido para uniformidade
+  marginBottom: 0,
+  color: "#333",
+  fontSize: "1rem",
+  lineHeight: 1.5,
+  width: "100%",
+  textAlign: "center",
   },
   formCentered: {
     display: "flex",

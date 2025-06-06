@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Orders from './pages/Orders';
 import ShoppingCart from './pages/ShoppingCart';
+import EditarProdutos from './pages/EditarProdutos';
 import Navbar from './components/Navbar';
 import Layout from './pages/Layout';
 import FecharPedido from './pages/FecharPedido'
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="/pedidos" element={<Layout><Orders /></Layout>} />
             <Route path="/carrinho" element={<Layout><ShoppingCart /></Layout>} />
             <Route path="/fechar-pedido" element ={<Layout><FecharPedido /></Layout>} />
+            <Route path="/admin/produtos" element= {<Layout><EditarProdutos /></Layout>} />
           </Routes>
         </Router>
       </CartProvider>

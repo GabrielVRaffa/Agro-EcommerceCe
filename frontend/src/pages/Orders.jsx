@@ -73,9 +73,7 @@ const Orders = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="meus-pedidos-titulo">
-        Meus Pedidos
-      </h2>
+      <h2 className="meus-pedidos-titulo">Meus Pedidos</h2>
       {pedidos.map((pedido) => (
         <div
           key={pedido.id}
@@ -100,40 +98,40 @@ const Orders = () => {
           )}
 
           <ul className="mt-4 flex flex-wrap justify-center gap-3">
-  {pedido.produtos.map((produto, idx) => (
-    <li
-      key={produto.id || idx}
-      className="flex flex-col items-center bg-gray-50 rounded-lg shadow-sm p-3 w-32 transition-transform transform hover:scale-105"
-      style={{ minWidth: 140 }}
-    >
-      {produto.imagem_url ? (
-        <img
-          src={produto.imagem_url}
-          alt={produto.nome}
-          className="w-28 h-28 object-cover rounded-md mb-2 shadow-md"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = "https://via.placeholder.com/112?text=Sem+Imagem";
-          }}
-        />
-      ) : (
-        <div className="w-28 h-28 bg-gray-300 rounded-md mb-2 flex items-center justify-center text-xs text-gray-500 font-medium">
-          Sem Imagem
-        </div>
-      )}
-      <span className="text-center font-semibold text-sm text-gray-800">
-        {produto.nome}
-      </span>
-      <span className="text-xs text-gray-600 mt-1">
-        Quantidade: {produto.quantidade || 1}
-      </span>
-      <span className="text-xs text-gray-600">
-        Preço: R$ {parseFloat(produto.preco || 0).toFixed(2)}
-      </span>
-    </li>
-  ))}
-</ul>
-
+            {pedido.produtos.map((produto, idx) => (
+              <li
+                key={produto.id || idx}
+                className="flex flex-col items-center bg-gray-50 rounded-lg shadow-sm p-3 w-32 transition-transform transform hover:scale-105"
+                style={{ minWidth: 140 }}
+              >
+                {produto.imagem_url ? (
+                  <img
+                    src={produto.imagem_url}
+                    alt={produto.nome}
+                    className="w-28 h-28 object-cover rounded-md mb-2 shadow-md"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        "https://via.placeholder.com/112?text=Sem+Imagem";
+                    }}
+                  />
+                ) : (
+                  <div className="w-28 h-28 bg-gray-300 rounded-md mb-2 flex items-center justify-center text-xs text-gray-500 font-medium">
+                    Sem Imagem
+                  </div>
+                )}
+                <span className="text-center font-semibold text-sm text-gray-800">
+                  {produto.nome}
+                </span>
+                <span className="text-xs text-gray-600 mt-1">
+                  Quantidade: {produto.quantidade || 1}
+                </span>
+                <span className="text-xs text-gray-600">
+                  Preço: R$ {parseFloat(produto.preco || 0).toFixed(2)}
+                </span>
+              </li>
+            ))}
+          </ul>
 
           <div className="mt-6 text-gray-900 space-y-2 text-center md:text-left md:flex md:justify-between md:items-center md:space-y-0">
             <p className="text-sm md:text-base">

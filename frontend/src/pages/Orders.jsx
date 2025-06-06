@@ -8,56 +8,67 @@ const Orders = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-  if (!user || !user.id) {
-    setLoading(false);
-    return;
-  }
-
-  const fetchPedidos = async () => {
-    try {
-      const response = await axios.get(`http://localhost:5000/pedidos/${user.id}`);
-      const pedidosComProdutos = await Promise.all(
-        response.data.map(async (pedido) => {
-          const produtosDetalhados = await Promise.all(
-            pedido.produtos.map(async (item) => {
-              try {
-                const res = await axios.get(`http://localhost:5000/produtos/${item.id}`);
-                console.log (res);
-                return {
-                  ...item,
-                  nome: res.data.name,
-                  imagem_url: res.data.image,
-                  preco: res.data.price
-                };
-              } catch (err) {
-                console.error(`Erro ao buscar produto ${item.id}:`, err);
-                return {
-                  ...item,
-                  nome: "Produto não encontrado",
-                  imagem_url: null,
-                  preco: 0
-                };
-              }
-            })
-          );
-          return { ...pedido, produtos: produtosDetalhados };
-        })
-      );
-
-      setPedidos(pedidosComProdutos);
-    } catch (error) {
-      console.error("Erro ao buscar pedidos:", error);
-    } finally {
+    if (!user || !user.id) {
       setLoading(false);
+      return;
     }
-  };
 
-  fetchPedidos();
-}, [user]);
+    const fetchPedidos = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/pedidos/${user.id}`
+        );
+        const pedidosComProdutos = await Promise.all(
+          response.data.map(async (pedido) => {
+            const produtosDetalhados = await Promise.all(
+              pedido.produtos.map(async (item) => {
+                try {
+                  const res = await axios.get(
+                    `http://localhost:5000/produtos/${item.id}`
+                  );
+                  return {
+                    ...item,
+                    nome: res.data.name,
+                    imagem_url: res.data.image,
+                    preco: res.data.price,
+                  };
+                } catch (err) {
+                  return {
+                    ...item,
+                    nome: "Produto não encontrado",
+                    imagem_url: null,
+                    preco: 0,
+                  };
+                }
+              })
+            );
+            return { ...pedido, produtos: produtosDetalhados };
+          })
+        );
+
+        setPedidos(pedidosComProdutos);
+      } catch (error) {
+        console.error("Erro ao buscar pedidos:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPedidos();
+  }, [user]);
 
   if (loading) {
     return (
-      <p className="text-center mt-10 text-lg font-medium text-gray-600">
+      <p
+        style={{
+          textAlign: "center",
+          marginTop: 40,
+          fontSize: 14,
+          fontWeight: "400",
+          color: "#718096",
+          backgroundColor: "transparent",
+        }}
+      >
         Carregando pedidos...
       </p>
     );
@@ -65,88 +76,220 @@ const Orders = () => {
 
   if (pedidos.length === 0) {
     return (
-      <p className="text-center mt-10 text-lg font-medium text-gray-600">
+      <p
+        style={{
+          textAlign: "center",
+          marginTop: 40,
+          fontSize: 14,
+          fontWeight: "400",
+          color: "#718096",
+          backgroundColor: "transparent",
+        }}
+      >
         Você ainda não fez nenhum pedido.
       </p>
     );
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="meus-pedidos-titulo">Meus Pedidos</h2>
+    <div
+      style={{
+        padding: 16,
+        maxWidth: 1000,
+        margin: "0 auto",
+        backgroundColor: "transparent",
+      }}
+    >
+      <h2
+        style={{
+          textAlign: "center", // centraliza
+          marginBottom: 24, // leve espaço abaixo
+          fontSize: 32, // fonte maior
+          fontWeight: "700", // mais forte
+          color: "#ffffff", // branco
+          backgroundColor: "transparent",
+        }}
+      >
+        Meus Pedidos
+      </h2>
+
       {pedidos.map((pedido) => (
         <div
           key={pedido.id}
-          className="bg-white shadow-lg rounded-xl p-6 mb-8 border border-gray-200 hover:shadow-xl transition-shadow duration-300"
+          style={{
+            backgroundColor: "transparent",
+            borderRadius: 12,
+            padding: 16,
+            marginBottom: 24,
+            border: "none",
+          }}
         >
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold text-xl text-gray-900">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 12,
+              backgroundColor: "transparent",
+            }}
+          >
+            <h3
+              style={{
+                fontWeight: "600",
+                fontSize: 18,
+                color: "white",
+                margin: 0,
+                backgroundColor: "transparent",
+              }}
+            >
               Pedido #{pedido.id}
             </h3>
-            <p className="text-sm text-gray-500">
+            <p
+              style={{
+                fontSize: 16,
+                color: "white",
+                margin: 0,
+                fontWeight: "400",
+                backgroundColor: "transparent", 
+              }}
+            >
               {new Date(pedido.data_pedido).toLocaleString("pt-BR")}
             </p>
           </div>
 
           {pedido.status && (
-            <p className="mb-4 text-sm text-gray-700">
+            <p
+              style={{
+                marginBottom: 12,
+                fontSize: 12,
+                color: "#4a5568",
+                fontWeight: "400",
+                marginTop: 0,
+                backgroundColor: "transparent",
+              }}
+            >
               Status:{" "}
-              <span className="font-semibold text-blue-600">
+              <span style={{ fontWeight: "600", color: "#3182ce" }}>
                 {pedido.status}
               </span>
             </p>
           )}
 
-          <ul className="mt-4 flex flex-wrap justify-center gap-3">
+          {/* ÁREA DOS PRODUTOS: fundo com 75% de opacidade */}
+          <ul
+            style={{
+              display: "flex",
+              gap: 8,
+              padding: 6,
+              borderRadius: 12,
+              backgroundColor: "rgba(255, 255, 255, 0.15)", // inline com 75% opacidade
+              overflowX: "auto",
+              maxHeight: 150, // altura suficiente p/ imagem + 2 linhas
+              marginBottom: 12,
+              alignItems: "center",
+            }}
+          >
             {pedido.produtos.map((produto, idx) => (
               <li
                 key={produto.id || idx}
-                className="flex flex-col items-center bg-gray-50 rounded-lg shadow-sm p-3 w-32 transition-transform transform hover:scale-105"
-                style={{ minWidth: 140 }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  fontSize: 14,
+                  color: "#ffffff", // branco fora da inline
+                  minWidth: 80,
+                  userSelect: "none",
+                  transition: "transform 0.3s ease",
+                  padding: 1,
+                  
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.transform = "scale(1.05)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.transform = "scale(1)")
+                }
               >
-                {produto.imagem_url ? (
-                  <img
-                    src={produto.imagem_url}
-                    alt={produto.nome}
-                    className="w-28 h-28 object-cover rounded-md mb-2 shadow-md"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src =
-                        "https://via.placeholder.com/112?text=Sem+Imagem";
-                    }}
-                  />
-                ) : (
-                  <div className="w-28 h-28 bg-gray-300 rounded-md mb-2 flex items-center justify-center text-xs text-gray-500 font-medium">
-                    Sem Imagem
-                  </div>
-                )}
-                <span className="text-center font-semibold text-sm text-gray-800">
+                <img
+                  src={
+                    produto.imagem_url ||
+                    "https://via.placeholder.com/70?text=Sem+Imagem"
+                  }
+                  alt={produto.nome}
+                  style={{
+                    width: 150,
+                    height: 70,
+                    objectFit: "cover",
+                    borderRadius: 6,
+                    marginBottom: 2,
+                    backgroundColor: "transparent",
+                  }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://via.placeholder.com/70?text=Sem+Imagem";
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "500",
+                    textAlign: "center",
+                    lineHeight: 1.1,
+                    color: "#1a202c", // escuro dentro da inline
+                    whiteSpace: "normal",
+                    wordBreak: "break-word",
+                    maxWidth: 150,
+                  }}
+                >
                   {produto.nome}
                 </span>
-                <span className="text-xs text-gray-600 mt-1">
-                  Quantidade: {produto.quantidade || 1}
+                <span style={{ fontSize: 14, color: "#2d3748" }}>
+                  Qtd: {produto.quantidade || 1}
                 </span>
-                <span className="text-xs text-gray-600">
-                  Preço: R$ {parseFloat(produto.preco || 0).toFixed(2)}
+                <span style={{ fontSize: 14, color: "#2d3748" }}>
+                  R$ {parseFloat(produto.preco || 0).toFixed(2)}
                 </span>
               </li>
             ))}
           </ul>
 
-          <div className="mt-6 text-gray-900 space-y-2 text-center md:text-left md:flex md:justify-between md:items-center md:space-y-0">
-            <p className="text-sm md:text-base">
-              Total de produtos:{" "}
-              <strong className="font-semibold">
+          <div
+            style={{
+              marginTop: 8,
+              color: "#1a202c",
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              gap: 8,
+              fontSize: 12,
+              backgroundColor: "transparent",
+            }}
+          >
+            <p style={{fontSize: 16,  flex: "1 1 30%" }}>
+              Total produtos:{" "}
+              <strong style={{fontSize: 16,  fontWeight: "600" }}>
                 R$ {parseFloat(pedido.valor_produtos || 0).toFixed(2)}
               </strong>
             </p>
-            <p className="text-sm md:text-base">
+            <p style={{fontSize: 16,  flex: "1 1 30%" }}>
               Frete:{" "}
-              <strong className="font-semibold">
+              <strong style={{fontSize: 16,  fontWeight: "600" }}>
                 R$ {parseFloat(pedido.valor_frete || 0).toFixed(2)}
               </strong>
             </p>
-            <p className="text-base font-bold text-green-700">
+            <p
+              style={{
+                flex: "1 1 30%",
+                fontWeight: "700",
+                color: "rgb(130, 238, 171)",
+                backgroundColor: "transparent",
+                fontSize: 18, 
+              }}
+            >
               Total: R$ {parseFloat(pedido.valor_total || 0).toFixed(2)}
             </p>
           </div>

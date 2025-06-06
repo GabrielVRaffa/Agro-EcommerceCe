@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // ⏳ novo estado
 
   // Carrega token do localStorage ao iniciar
   useEffect(() => {
@@ -26,9 +27,9 @@ export function AuthProvider({ children }) {
         setUser(null);
       }
     }
+    setIsLoading(false); // ✅ marca fim do carregamento
   }, []);
 
-  // Salva token após login
   const login = token => {
     try {
       localStorage.setItem('token', token);
@@ -38,7 +39,7 @@ export function AuthProvider({ children }) {
         setUser(decoded);
       } else {
         console.warn("⚠️ Token inválido ao fazer login:", decoded);
-        logout(); // limpa caso o token não seja confiável
+        logout();
       }
     } catch (err) {
       console.error("❌ Erro ao decodificar token no login:", err);
@@ -46,16 +47,25 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // Remove token e limpa usuário
   const logout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-  };
+  setIsLoading(true); // impede rota de redirecionar antes da limpeza
+  localStorage.removeItem('token');
+  setUser(null);
+  setTimeout(() => setIsLoading(false), 100); // tempo curto só para evitar conflito
+};
 
   const isAuthenticated = !!user;
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated,
+        isLoading, // ⬅️ importante para PrivateRoute
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

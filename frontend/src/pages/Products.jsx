@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 import { useCart } from '../components/CartContext';
+import { useAuth } from '../components/AuthContext';
+
 
 function Products() {
   const [produtos, setProdutos] = useState([]);
   const [filter, setFilter] = useState('Todos');
   const { addToCart } = useCart();
+  const { isAuthenticated } = useAuth();
 
   // Buscar produtos do backend
   useEffect(() => {
@@ -58,28 +61,32 @@ function Products() {
             <p><em>{produto.category}</em></p>
 
             <div className="produto-formulario">
-  <form
-    onSubmit={e => {
-      e.preventDefault();
-      const quantidade = parseInt(e.target.quantidade.value, 10);
-      if (quantidade >= 10) {
-        addToCart(produto, quantidade);
-        e.target.reset();
-        alert('Produto adicionado ao carrinho!');
-      } else {
-        alert('Quantidade mínima é 10 unidades.');
-      }
-    }}
-  >
-    <input
-      type="number"
-      name="quantidade"
-      min="10"
-      placeholder="Quantidade"
-      required
-    />
-    <button type="submit">Adicionar ao Carrinho</button>
-  </form>
+  {isAuthenticated && (
+  <div className="produto-formulario">
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        const quantidade = parseInt(e.target.quantidade.value, 10);
+        if (quantidade >= 10) {
+          addToCart(produto, quantidade);
+          e.target.reset();
+          alert('Produto adicionado ao carrinho!');
+        } else {
+          alert('Quantidade mínima é 10 unidades.');
+        }
+      }}
+    >
+      <input
+        type="number"
+        name="quantidade"
+        min="10"
+        placeholder="Quantidade"
+        required
+      />
+      <button type="submit">Adicionar ao Carrinho</button>
+    </form>
+  </div>
+)}
 </div>
             <hr />
           </li>

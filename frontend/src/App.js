@@ -14,6 +14,7 @@ import FecharPedido from './pages/FecharPedido';
 import { AuthProvider } from './components/AuthContext';
 import { CartProvider } from './components/CartContext';
 import Loader from './components/Loader';
+import PrivateRoute from './components/PrivateRoute.jsx'
 
 function AppContent() {
   const location = useLocation();
@@ -31,14 +32,23 @@ function AppContent() {
       {loading && <Loader />}
       {!loading && (
         <Routes>
-          <Route path="/" element={<Layout><Home /></Layout>} />
-          <Route path="/products" element={<Layout><Products /></Layout>} />
-          <Route path="/login" element={<Layout><Login /></Layout>} />
-          <Route path="/cadastro" element={<Layout><SignUp /></Layout>} />
-          <Route path="/pedidos" element={<Layout><Orders /></Layout>} />
-          <Route path="/carrinho" element={<Layout><ShoppingCart /></Layout>} />
-          <Route path="/fechar-pedido" element={<Layout><FecharPedido /></Layout>} />
-          <Route path="/admin/produtos" element={<Layout><EditarProdutos /></Layout>} />
+            {/* públicas */}
+            <Route path="/" element={<Layout><Home /></Layout>} />
+            <Route path="/products" element={<Layout><Products /></Layout>} />
+            <Route path="/login" element={<Layout><Login /></Layout>} />
+            <Route path="/cadastro" element={<Layout><SignUp /></Layout>} />
+
+            {/* protegidas – qualquer usuário logado */}
+            <Route element={<PrivateRoute />}>
+              <Route path="/pedidos" element={<Layout><Orders /></Layout>} />
+              <Route path="/carrinho" element={<Layout><ShoppingCart /></Layout>} />
+              <Route path="/fechar-pedido" element={<Layout><FecharPedido /></Layout>} />
+            </Route>
+
+            {/* protegida – apenas admin */}
+            <Route element={<PrivateRoute requiredRole="admin" />}>
+              <Route path="/admin/produtos" element={<Layout><EditarProdutos /></Layout>} />
+            </Route>
         </Routes>
       )}
     </>

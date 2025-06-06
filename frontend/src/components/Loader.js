@@ -7,7 +7,7 @@ export default function Loader() {
       <div className="dots-loader">
         <div></div><div></div><div></div>
       </div>
-      <p style={{ marginTop: '10px', color: '#2d6a4f', fontWeight: 'bold' }}>Carregando...</p>
+      <p style={{ marginTop: '10px', color: '#40916c', fontWeight: 'bold' }}>Carregando...</p>
     </div>
   );
 }

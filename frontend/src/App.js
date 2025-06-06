@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Orders from './pages/Orders';
 import ShoppingCart from './pages/ShoppingCart';
+import EditarProdutos from './pages/EditarProdutos';
 import Navbar from './components/Navbar';
 import Layout from './pages/Layout';
 import FecharPedido from './pages/FecharPedido';
@@ -20,7 +21,7 @@ function AppContent() {
 
   useEffect(() => {
     setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 400); // ajustável
+    const timer = setTimeout(() => setLoading(false), 400); // duração ajustável
     return () => clearTimeout(timer);
   }, [location]);
 
@@ -37,6 +38,7 @@ function AppContent() {
           <Route path="/pedidos" element={<Layout><Orders /></Layout>} />
           <Route path="/carrinho" element={<Layout><ShoppingCart /></Layout>} />
           <Route path="/fechar-pedido" element={<Layout><FecharPedido /></Layout>} />
+          <Route path="/admin/produtos" element={<Layout><EditarProdutos /></Layout>} />
         </Routes>
       )}
     </>

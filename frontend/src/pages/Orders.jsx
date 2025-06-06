@@ -8,28 +8,52 @@ const Orders = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (!user || !user.id) {
+  if (!user || !user.id) {
+    setLoading(false);
+    return;
+  }
+
+  const fetchPedidos = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/pedidos/${user.id}`);
+      const pedidosComProdutos = await Promise.all(
+        response.data.map(async (pedido) => {
+          const produtosDetalhados = await Promise.all(
+            pedido.produtos.map(async (item) => {
+              try {
+                const res = await axios.get(`http://localhost:5000/produtos/${item.id}`);
+                console.log (res);
+                return {
+                  ...item,
+                  nome: res.data.name,
+                  imagem_url: res.data.image,
+                  preco: res.data.price
+                };
+              } catch (err) {
+                console.error(`Erro ao buscar produto ${item.id}:`, err);
+                return {
+                  ...item,
+                  nome: "Produto não encontrado",
+                  imagem_url: null,
+                  preco: 0
+                };
+              }
+            })
+          );
+          return { ...pedido, produtos: produtosDetalhados };
+        })
+      );
+
+      setPedidos(pedidosComProdutos);
+    } catch (error) {
+      console.error("Erro ao buscar pedidos:", error);
+    } finally {
       setLoading(false);
-      return;
     }
+  };
 
-    const fetchPedidos = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/pedidos/${user.id}`
-        );
-
-        console.log("Produtos do primeiro pedido:", response.data[0]?.produtos);
-        setPedidos(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar pedidos:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPedidos();
-  }, [user]);
+  fetchPedidos();
+}, [user]);
 
   if (loading) {
     return (
@@ -56,9 +80,9 @@ const Orders = () => {
           className="bg-white shadow-lg rounded-xl p-6 mb-8 border border-gray-200 hover:shadow-xl transition-shadow duration-300"
         >
           <div className="flex justify-between items-center mb-4">
-            <p className="font-semibold text-xl text-gray-900">
+            <h3 className="font-semibold text-xl text-gray-900">
               Pedido #{pedido.id}
-            </p>
+            </h3>
             <p className="text-sm text-gray-500">
               {new Date(pedido.data_pedido).toLocaleString("pt-BR")}
             </p>
